@@ -1,0 +1,11 @@
+*~
+*.swp
+*.d
+*.map
+*.o
+*.elf
+tags
+_nn
+libopencm3
+libopencm3_stm32f1.a
+libopencm3_stm32f1.ld
