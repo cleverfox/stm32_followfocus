@@ -1,0 +1,20 @@
+#!env escript
+-export([main/1]).
+main([]) ->
+  io:format("Specifu 2 arguments: steps and max pwm~n For example: 12 255~n");
+main([SSt,SPwm]) ->
+  R=calcpwm(list_to_integer(SSt),list_to_integer(SPwm)),
+  lists:foreach(
+      fun({Step, P1, P2, P3}) ->
+      io:format("~-5w ~6w ~6w ~6w~n",[Step, P1, P2, P3])
+      end, R).
+
+calcpwm(Steps, MaxPWM) ->
+  Half=(MaxPWM div 2),
+  PWM=fun(Angle,PH) ->
+    SIN=math:sin((Angle+(120*PH))/180*math:pi()),
+    trunc(SIN*(Half-1)+Half) 
+  end,
+  [ {A,PWM(A,0),PWM(A,1),PWM(A,2)} || A<- lists:seq(0,359,(360 div Steps)) ].
+  
+

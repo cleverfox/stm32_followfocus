@@ -42,8 +42,11 @@ include Makefile.rules
 OBJS += -L. -lm -latomthreads
 LDLIBS += -lc_nano 
 
+all: bin
+
 bin: main.elf
 	arm-none-eabi-objcopy -Obinary main.elf main.bin
+	arm-none-eabi-size main.elf
 
 install: bin
 	st-flash write main.bin 0x8000000
